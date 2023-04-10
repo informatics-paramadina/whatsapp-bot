@@ -8,6 +8,7 @@ const appBoot = () => {
     app.use(baseRoute);
 
     const io = ExpressServer.getIo();
+    
     io.on("connection", (socket) => {
         wsHandler(socket)
     });

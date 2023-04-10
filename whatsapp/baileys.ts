@@ -1,8 +1,8 @@
-import makeWASocket, { useMultiFileAuthState, fetchLatestBaileysVersion, WAMessageKey, WAMessageContent, DisconnectReason } from "@adiwajshing/baileys"
+import makeWASocket, { useMultiFileAuthState, fetchLatestBaileysVersion, DisconnectReason } from "@adiwajshing/baileys"
 import { Boom } from "@hapi/boom"
 
-const connectToWhatsApp = async () => {
-    const { state, saveCreds } = await useMultiFileAuthState("session")
+const connectToWhatsApp = async (botName: string) => {
+    const { state, saveCreds } = await useMultiFileAuthState("sessions/" + botName)
     const { version, isLatest } = await fetchLatestBaileysVersion()
     console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
 
@@ -23,7 +23,7 @@ const connectToWhatsApp = async () => {
             if (connection === 'close') {
                 // reconnect if not logged out
                 if ((lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut) {
-                    connectToWhatsApp()
+                    connectToWhatsApp(botName)
                 } else {
                     console.log('Connection closed. You are logged out.')
                 }

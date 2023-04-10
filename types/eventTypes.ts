@@ -1,5 +1,5 @@
 type EventTypes = {
-    'request:connect': (hostname: string) => void;
+    'request:connect': (botName: string) => void;
 }
 
 export default EventTypes

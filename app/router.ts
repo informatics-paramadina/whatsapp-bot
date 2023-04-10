@@ -1,7 +1,7 @@
-import { createRoute } from "../vendor/v_express";
-import botHandler from "./handler/botHandler";
+import ExpressServer from "../vendor/v_express";
+import botHandler from "./handler/api/botHandler";
 
-const baseRoute = createRoute();
+const baseRoute = ExpressServer.createRoute();
 
 baseRoute.get("/", botHandler.get);
 
